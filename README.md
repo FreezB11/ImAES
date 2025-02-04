@@ -1,5 +1,5 @@
 ## ImAES
-### a simple aes(advanced encrytion system) implementation in c++
+### a simple aes(advanced encrytion standard) implementation in c++
 
 This is a simple implementation of aes from scratch in c++, the code is inspired and taken from the book [Implementing-SSL-TLS-Using-Cryptography](https://www.amazon.com/Implementing-SSL-TLS-Using-Cryptography-ebook/dp/B004IK9TVO)
 

@@ -29,4 +29,51 @@ ImAES also has a implementation for the
     // the above will give a unsinged char* (uc*)
     show_hex(cypher,input_len + MAC_LENGTH);
 ```
+## Example code
+```c++
+#include <iostream>
+#include <string.h>
 
+#include "ImAES.h"
+
+int main(int argc, char *argv[]){
+
+    uc *key, *input, *iv;
+    int key_len, input_len, iv_len;
+
+    key_len = hex_decode( "thisisasecret00", &key );
+    iv_len = hex_decode( "thisistheiv", &iv );
+    input_len = hex_decode( argv[2], &input );
+     
+
+    if(!strcmp(argv[1], "-e")){
+        show_hex(ImAES::encrypt<16>(input, input_len, iv, key),input_len + MAC_LENGTH);
+    }else if(!strcmp(argv[1], "-d")){
+        show_hex(ImAES::decrypt<16>(input, input_len, iv, key), input_len - MAC_LENGTH);
+    }
+
+    return 0;
+}
+```
+### Makefile
+```mk
+cc = g++
+flags = -Wall
+
+files = main.cc
+
+all:
+	${cc} -o ImAES ${files} ${flags}
+```
+
+## Output
+### Encryption
+```term
+./ImAES -e "hey"
+458bb66199c8b08d4aafad
+```
+### Decryption
+```term
+./ImAES -d 0x458bb66199c8b08d4aafad
+686579 ## this here is the "hey" text but in hex values
+```
